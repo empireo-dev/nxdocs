@@ -1,0 +1,257 @@
+byte_hex,byte_dec,role,status,decode,source
+0x00,0,,unknown,,
+0x01,1,,unknown,,
+0x02,2,,unknown,,
+0x03,3,direct,resolved,PRINT_ITEM_TO,oracle
+0x04,4,,unknown,,
+0x05,5,direct,resolved,INPLACE_POWER,oracle
+0x06,6,direct,resolved,DELETE_SUBSCR,oracle
+0x07,7,,unknown,,
+0x08,8,direct,resolved,STORE_MAP,oracle
+0x09,9,direct,resolved,UNARY_INVERT,oracle
+0x0a,10,direct,resolved,BINARY_SUBSCR,oracle
+0x0b,11,direct,resolved,NOP,switch
+0x0c,12,direct,resolved,ROT_FOUR,switch
+0x0d,13,direct,resolved,BINARY_TRUE_DIVIDE,oracle
+0x0e,14,direct,resolved,DELETE_SLICE+0,oracle
+0x0f,15,direct,resolved,DELETE_SLICE+1,oracle
+0x10,16,direct,resolved,DELETE_SLICE+2,oracle
+0x11,17,direct,resolved,DELETE_SLICE+3,oracle
+0x12,18,fused,resolved,LOAD_LOCALS;RETURN_VALUE,stdlib
+0x13,19,direct,resolved,BINARY_OR,oracle
+0x14,20,fused,resolved,POP_TOP;POP_TOP,switch
+0x15,21,direct,resolved,INPLACE_ADD,oracle
+0x16,22,direct,resolved,INPLACE_MODULO,oracle
+0x17,23,direct,resolved,INPLACE_TRUE_DIVIDE,oracle
+0x18,24,direct,resolved,STORE_SLICE+0,oracle
+0x19,25,direct,resolved,STORE_SLICE+1,oracle
+0x1a,26,direct,resolved,STORE_SLICE+2,oracle
+0x1b,27,direct,resolved,STORE_SLICE+3,oracle
+0x1c,28,,unknown,,
+0x1d,29,fused,resolved,POP_TOP;POP_TOP;POP_TOP,stdlib
+0x1e,30,direct,resolved,BINARY_XOR,oracle
+0x1f,31,direct,resolved,YIELD_VALUE,oracle
+0x20,32,direct,resolved,UNARY_CONVERT,oracle
+0x21,33,direct,resolved,BUILD_CLASS,oracle
+0x22,34,direct,resolved,INPLACE_DIVIDE,oracle
+0x23,35,direct,resolved,UNARY_POSITIVE,oracle
+0x24,36,direct,resolved,BINARY_MODULO,oracle
+0x25,37,direct,resolved,ROT_THREE,oracle
+0x26,38,direct,resolved,POP_TOP,oracle
+0x27,39,direct,resolved,BINARY_ADD,oracle
+0x28,40,fused,resolved,BINARY_SUBSCR;RETURN_VALUE,stdlib
+0x29,41,fused,resolved,POP_TOP;POP_BLOCK,stdlib
+0x2a,42,direct,resolved,PRINT_NEWLINE,oracle
+0x2b,43,direct,resolved,BINARY_AND,oracle
+0x2c,44,direct,resolved,BINARY_DIVIDE,oracle
+0x2d,45,direct,resolved,END_FINALLY,oracle
+0x2e,46,direct,resolved,ROT_TWO,oracle
+0x2f,47,direct,resolved,INPLACE_OR,oracle
+0x30,48,direct,resolved,PRINT_NEWLINE_TO,oracle
+0x31,49,direct,resolved,INPLACE_FLOOR_DIVIDE,oracle
+0x32,50,direct,resolved,LOAD_LOCALS,oracle
+0x33,51,direct,resolved,BREAK_LOOP,oracle
+0x34,52,direct,resolved,BINARY_FLOOR_DIVIDE,oracle
+0x35,53,direct,resolved,PRINT_ITEM,oracle
+0x36,54,direct,resolved,WITH_CLEANUP,oracle
+0x37,55,direct,resolved,INPLACE_SUBTRACT,oracle
+0x38,56,,unknown,,
+0x39,57,direct,resolved,BINARY_SUBTRACT,oracle
+0x3a,58,direct,resolved,BINARY_LSHIFT,oracle
+0x3b,59,,unknown,,
+0x3c,60,direct,resolved,GET_ITER,oracle
+0x3d,61,,unknown,,
+0x3e,62,,unknown,,
+0x3f,63,direct,resolved,BINARY_POWER,oracle
+0x40,64,direct,resolved,EXEC_STMT,oracle
+0x41,65,direct,resolved,STORE_SUBSCR,oracle
+0x42,66,direct,resolved,DUP_TOP,oracle
+0x43,67,direct,resolved,UNARY_NEGATIVE,oracle
+0x44,68,,unknown,,
+0x45,69,,unknown,,
+0x46,70,direct,resolved,BINARY_MULTIPLY,oracle
+0x47,71,direct,resolved,BINARY_RSHIFT,oracle
+0x48,72,direct,resolved,POP_BLOCK,oracle
+0x49,73,,unknown,,
+0x4a,74,direct,resolved,IMPORT_STAR,oracle
+0x4b,75,direct,resolved,PRINT_EXPR,switch
+0x4c,76,,unknown,,
+0x4d,77,direct,resolved,INPLACE_RSHIFT,oracle
+0x4e,78,direct,resolved,INPLACE_AND,oracle
+0x4f,79,,unknown,,
+0x50,80,,unknown,,
+0x51,81,direct,resolved,UNARY_NOT,oracle
+0x52,82,direct,resolved,INPLACE_MULTIPLY,oracle
+0x53,83,direct,resolved,RETURN_VALUE,oracle
+0x54,84,direct,resolved,INPLACE_LSHIFT,oracle
+0x55,85,direct,resolved,INPLACE_XOR,oracle
+0x56,86,direct,resolved,SLICE+0,oracle
+0x57,87,direct,resolved,SLICE+1,oracle
+0x58,88,direct,resolved,SLICE+2,oracle
+0x59,89,direct,resolved,SLICE+3,oracle
+0x5a,90,direct,resolved,BUILD_LIST,oracle
+0x5b,91,fused,resolved,LOAD_CONST;STORE_MAP,stdlib
+0x5c,92,fused,resolved,CALL_FUNCTION;POP_TOP,stdlib
+0x5d,93,direct,resolved,RAISE_VARARGS,oracle
+0x5e,94,direct,resolved,SETUP_WITH,oracle
+0x5f,95,direct,resolved,DELETE_ATTR,oracle
+0x60,96,direct,resolved,LOAD_ATTR,oracle
+0x61,97,direct,resolved,LOAD_FAST,oracle
+0x62,98,fused,resolved,LOAD_CONST;RETURN_VALUE,stdlib
+0x63,99,direct,resolved,BUILD_SET,oracle
+0x64,100,direct,resolved,MAKE_CLOSURE,oracle
+0x65,101,direct,resolved,LOAD_NAME,oracle
+0x66,102,direct,resolved,STORE_DEREF,oracle
+0x67,103,direct,resolved,CONTINUE_LOOP,oracle
+0x68,104,direct,resolved,STORE_FAST,oracle
+0x69,105,direct,resolved,JUMP_IF_FALSE_OR_POP,oracle
+0x6a,106,fused,resolved,POP_TOP;LOAD_FAST,stdlib
+0x6b,107,fused,resolved,POP_TOP;LOAD_CONST,stdlib
+0x6c,108,fused,resolved,LOAD_CONST;BINARY_SUBSCR,stdlib
+0x6d,109,direct,resolved,SET_ADD,oracle
+0x6e,110,direct,resolved,SETUP_FINALLY,oracle
+0x6f,111,direct,resolved,DELETE_GLOBAL,oracle
+0x70,112,fused,resolved,POP_TOP;JUMP_FORWARD,stdlib
+0x71,113,direct,resolved,STORE_GLOBAL,oracle
+0x72,114,direct,resolved,COMPARE_OP,oracle
+0x73,115,direct,resolved,BUILD_SLICE,oracle
+0x74,116,direct,resolved,IMPORT_FROM,oracle
+0x75,117,fused,resolved,POP_TOP;LOAD_GLOBAL,stdlib
+0x76,118,direct,resolved,DELETE_FAST,oracle
+0x77,119,combo-head,resolved,LOAD_CONST;LOAD_CONST (+0xB2),stdlib
+0x78,120,direct,resolved,LOAD_CLOSURE,oracle
+0x79,121,combo-head,resolved,LOAD_CONST;LOAD_CONST;STORE_MAP (+0xB2),stdlib
+0x7a,122,combo-head,resolved,LOAD_CONST;LOAD_CONST;BUILD_TUPLE (+0xB2),switch
+0x7b,123,direct,resolved,MAP_ADD,oracle
+0x7c,124,combo-head,resolved,LOAD_ATTR;LOAD_ATTR (+0xB2),stdlib
+0x7d,125,direct,resolved,UNPACK_SEQUENCE,oracle
+0x7e,126,combo-head,resolved,LOAD_CONST;CALL_FUNCTION (+0xB2),stdlib
+0x7f,127,combo-head,resolved,LOAD_ATTR;LOAD_FAST (+0xB2),stdlib
+0x80,128,direct,resolved,SETUP_EXCEPT,oracle
+0x81,129,direct,resolved,LOAD_DEREF,oracle
+0x82,130,direct,resolved,JUMP_IF_TRUE_OR_POP,oracle
+0x83,131,direct,resolved,CALL_FUNCTION,oracle
+0x84,132,direct,resolved,STORE_ATTR,oracle
+0x85,133,combo-head,resolved,LOAD_ATTR;CALL_FUNCTION (+0xB2),stdlib
+0x86,134,direct,resolved,IMPORT_NAME,oracle
+0x87,135,direct,resolved,BUILD_TUPLE,oracle
+0x88,136,direct,resolved,MAKE_FUNCTION,oracle
+0x89,137,direct,resolved,JUMP_ABSOLUTE,oracle
+0x8a,138,direct,resolved,DUP_TOPX,oracle
+0x8b,139,combo-head,resolved,STORE_NAME;LOAD_CONST (+0xB2),stdlib
+0x8c,140,direct,resolved,CALL_FUNCTION_VAR,oracle
+0x8d,141,direct,resolved,CALL_FUNCTION_KW,oracle
+0x8e,142,direct,resolved,CALL_FUNCTION_VAR_KW,oracle
+0x8f,143,combo-head,resolved,LOAD_FAST;LOAD_ATTR (+0xB2),stdlib
+0x90,144,combo-head,resolved,STORE_FAST;LOAD_FAST (+0xB2),stdlib
+0x91,145,direct,resolved,STORE_NAME,oracle
+0x92,146,combo-head,resolved,LOAD_CONST;MAKE_FUNCTION (+0xB2),stdlib
+0x93,147,combo-head,resolved,LOAD_FAST;CALL_FUNCTION (+0xB2),stdlib
+0x94,148,direct,resolved,POP_JUMP_IF_FALSE,oracle
+0x95,149,direct,resolved,FOR_ITER,oracle
+0x96,150,combo-head,resolved,LOAD_FAST;LOAD_CONST (+0xB2),stdlib
+0x97,151,direct,resolved,BUILD_MAP,oracle
+0x98,152,combo-head,resolved,CALL_FUNCTION;POP_TOP;LOAD_FAST (+0xB2),switch
+0x99,153,direct,resolved,LOAD_CONST,oracle
+0x9a,154,combo-head,resolved,CALL_FUNCTION;STORE_FAST (+0xB2),stdlib
+0x9b,155,direct,resolved,LOAD_GLOBAL,oracle
+0x9c,156,direct,resolved,JUMP_FORWARD,oracle
+0x9d,157,direct,resolved,LIST_APPEND,oracle
+0x9e,158,direct,resolved,SETUP_LOOP,oracle
+0x9f,159,direct,resolved,DELETE_NAME,oracle
+0xa0,160,direct,resolved,EXTENDED_ARG,oracle
+0xa1,161,combo-head,resolved,MAKE_FUNCTION;STORE_NAME (+0xB2),stdlib
+0xa2,162,combo-head,resolved,COMPARE_OP;POP_JUMP_IF_FALSE (+0xB2),stdlib
+0xa3,163,combo-head,resolved,LOAD_ATTR;LOAD_GLOBAL (+0xB2),stdlib
+0xa4,164,combo-head,resolved,LOAD_FAST;LOAD_FAST (+0xB2),stdlib
+0xa5,165,combo-head,resolved,LOAD_FAST;STORE_ATTR (+0xB2),stdlib
+0xa6,166,combo-head,resolved,LOAD_ATTR;CALL_FUNCTION;POP_TOP (+0xB2),stdlib
+0xa7,167,combo-head,resolved,LOAD_GLOBAL;LOAD_FAST (+0xB2),stdlib
+0xa8,168,combo-head,resolved,LOAD_CONST;LOAD_FAST (+0xB2),stdlib
+0xa9,169,combo-head,resolved,LOAD_CONST;IMPORT_NAME (+0xB2),stdlib
+0xaa,170,combo-head,resolved,LOAD_GLOBAL;CALL_FUNCTION;POP_TOP (+0xB2),stdlib
+0xab,171,combo-head,resolved,LOAD_GLOBAL;CALL_FUNCTION (+0xB2),stdlib
+0xac,172,direct,resolved,POP_JUMP_IF_TRUE,oracle
+0xad,173,fused,resolved,LOAD_FAST;LOAD_CONST,stdlib
+0xae,174,combo-head,resolved,CALL_FUNCTION;CALL_FUNCTION (+0xB2),stdlib
+0xaf,175,combo-head,resolved,LOAD_CONST;COMPARE_OP (+0xB2),stdlib
+0xb0,176,combo-head,resolved,LOAD_FAST;CALL_FUNCTION;POP_TOP (+0xB2),stdlib
+0xb1,177,combo-head,resolved,STORE_FAST;LOAD_GLOBAL (+0xB2),stdlib
+0xb2,178,combo-filler,resolved,inert 0xB2 continuation byte in combos (never a standalone opcode),opprev
+0xb3,179,,unused,,
+0xb4,180,,unused,,
+0xb5,181,,unused,,
+0xb6,182,,unused,,
+0xb7,183,,unused,,
+0xb8,184,,unused,,
+0xb9,185,,unused,,
+0xba,186,,unused,,
+0xbb,187,,unused,,
+0xbc,188,,unused,,
+0xbd,189,,unused,,
+0xbe,190,,unused,,
+0xbf,191,,unused,,
+0xc0,192,,unused,,
+0xc1,193,,unused,,
+0xc2,194,,unused,,
+0xc3,195,,unused,,
+0xc4,196,,unused,,
+0xc5,197,,unused,,
+0xc6,198,,unused,,
+0xc7,199,,unused,,
+0xc8,200,,unused,,
+0xc9,201,,unused,,
+0xca,202,,unused,,
+0xcb,203,,unused,,
+0xcc,204,,unused,,
+0xcd,205,,unused,,
+0xce,206,,unused,,
+0xcf,207,,unused,,
+0xd0,208,,unused,,
+0xd1,209,,unused,,
+0xd2,210,,unused,,
+0xd3,211,,unused,,
+0xd4,212,,unused,,
+0xd5,213,,unused,,
+0xd6,214,,unused,,
+0xd7,215,,unused,,
+0xd8,216,,unused,,
+0xd9,217,,unused,,
+0xda,218,,unused,,
+0xdb,219,,unused,,
+0xdc,220,,unused,,
+0xdd,221,,unused,,
+0xde,222,,unused,,
+0xdf,223,,unused,,
+0xe0,224,,unused,,
+0xe1,225,,unused,,
+0xe2,226,,unused,,
+0xe3,227,,unused,,
+0xe4,228,,unused,,
+0xe5,229,,unused,,
+0xe6,230,,unused,,
+0xe7,231,,unused,,
+0xe8,232,,unused,,
+0xe9,233,,unused,,
+0xea,234,,unused,,
+0xeb,235,,unused,,
+0xec,236,,unused,,
+0xed,237,,unused,,
+0xee,238,,unused,,
+0xef,239,,unused,,
+0xf0,240,,unused,,
+0xf1,241,,unused,,
+0xf2,242,,unused,,
+0xf3,243,,unused,,
+0xf4,244,,unused,,
+0xf5,245,,unused,,
+0xf6,246,,unused,,
+0xf7,247,,unused,,
+0xf8,248,,unused,,
+0xf9,249,,unused,,
+0xfa,250,,unused,,
+0xfb,251,,unused,,
+0xfc,252,,unused,,
+0xfd,253,,unused,,
+0xfe,254,,unused,,
+0xff,255,,unused,,
