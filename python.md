@@ -31,22 +31,26 @@ Python is **statically linked** into the NeoX binaries — there is **no**
 The interpreter is a fork, modified so it **runs obfuscated bytecode natively**:
 there is no de-obfuscation step at load time — the obfuscated form *is* the
 executed form. All of the obfuscation targets the **opcodes** (operand values and
-the code-object structure are left untouched), in **four layers**:
+the code-object structure are left untouched); there is no cipher, so decoding is
+a table-driven lookup. It is produced in **two stages**:
 
-1. **Direct substitution** — the opcode numbers are permuted.
-2. **Alias substitution** — some opcodes gain several interchangeable encodings.
-3. **Fusion** — common opcode pairs collapse into single bytes.
-4. **Previous-dependent (`0xB2`)** — one byte whose meaning depends on the opcode before it.
+1. **Opcode permutation** — the compiler renumbers the opcodes, one encoded byte
+   per stock opcode.
+2. **Fusion** — a separate packing tool then folds common runs of opcodes into
+   single *superinstruction* bytes. Two forms: a plain **fused** byte (one byte →
+   a short opcode sequence), and a **`0xB2` combo** (a head byte followed by one or
+   more `0xB2` filler bytes that carry the extra sub-ops' operands). `0xB2` is
+   never a standalone opcode. There is **no separate "alias" layer** — what looks
+   like a hot opcode's extra encodings are combo heads.
 
-The layers, the decoding rules, and the lookup tables are documented in full in
+The decoding rules and the lookup tables are documented in full in
 [opcode.md](packaging/scripts/opcode.md).
 
-The interpreter can **run** all four layers but only **produces** the first: its
-compiler emits the direct permutation, while a **separate packing tool** (not
-shipped with the game) adds the alias, fusion, and `0xB2` layers on top. So
-`python.exe` cannot repack a script into the shipped form — but it runs whatever
-it compiles without trouble, which is all we need should we ever edit or write
-new scripts.
+The interpreter can **run** both stages but only **produces** the first: its
+compiler emits the permutation, while the **separate packing tool** (not shipped
+with the game) adds fusion on top. So `python.exe` cannot repack a script into the
+shipped form — but it runs whatever it compiles without trouble, which is all we
+need should we ever edit or write new scripts.
 
 ## How to look it up again
 

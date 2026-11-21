@@ -1,12 +1,12 @@
 byte_hex,byte_dec,role,status,decode,source
-0x00,0,,unknown,,
-0x01,1,,unknown,,
-0x02,2,,unknown,,
+0x00,0,,unused,no interpreter case (gap in the switch),switch
+0x01,1,,unused,no interpreter case (gap in the switch),switch
+0x02,2,,unused,no interpreter case (gap in the switch),switch
 0x03,3,direct,resolved,PRINT_ITEM_TO,oracle
-0x04,4,,unknown,,
+0x04,4,,unused,no interpreter case (gap in the switch),switch
 0x05,5,direct,resolved,INPLACE_POWER,oracle
 0x06,6,direct,resolved,DELETE_SUBSCR,oracle
-0x07,7,,unknown,,
+0x07,7,,unused,no interpreter case (gap in the switch),switch
 0x08,8,direct,resolved,STORE_MAP,oracle
 0x09,9,direct,resolved,UNARY_INVERT,oracle
 0x0a,10,direct,resolved,BINARY_SUBSCR,oracle
@@ -27,7 +27,7 @@ byte_hex,byte_dec,role,status,decode,source
 0x19,25,direct,resolved,STORE_SLICE+1,oracle
 0x1a,26,direct,resolved,STORE_SLICE+2,oracle
 0x1b,27,direct,resolved,STORE_SLICE+3,oracle
-0x1c,28,,unknown,,
+0x1c,28,,unused,no interpreter case (gap in the switch),switch
 0x1d,29,fused,resolved,POP_TOP;POP_TOP;POP_TOP,stdlib
 0x1e,30,direct,resolved,BINARY_XOR,oracle
 0x1f,31,direct,resolved,YIELD_VALUE,oracle
@@ -55,31 +55,31 @@ byte_hex,byte_dec,role,status,decode,source
 0x35,53,direct,resolved,PRINT_ITEM,oracle
 0x36,54,direct,resolved,WITH_CLEANUP,oracle
 0x37,55,direct,resolved,INPLACE_SUBTRACT,oracle
-0x38,56,,unknown,,
+0x38,56,,unused,no interpreter case (gap in the switch),switch
 0x39,57,direct,resolved,BINARY_SUBTRACT,oracle
 0x3a,58,direct,resolved,BINARY_LSHIFT,oracle
-0x3b,59,,unknown,,
+0x3b,59,,unused,no interpreter case (gap in the switch),switch
 0x3c,60,direct,resolved,GET_ITER,oracle
-0x3d,61,,unknown,,
-0x3e,62,,unknown,,
+0x3d,61,,unused,no interpreter case (gap in the switch),switch
+0x3e,62,,unused,no interpreter case (gap in the switch),switch
 0x3f,63,direct,resolved,BINARY_POWER,oracle
 0x40,64,direct,resolved,EXEC_STMT,oracle
 0x41,65,direct,resolved,STORE_SUBSCR,oracle
 0x42,66,direct,resolved,DUP_TOP,oracle
 0x43,67,direct,resolved,UNARY_NEGATIVE,oracle
-0x44,68,,unknown,,
-0x45,69,,unknown,,
+0x44,68,,unused,no interpreter case (gap in the switch),switch
+0x45,69,,unused,no interpreter case (gap in the switch),switch
 0x46,70,direct,resolved,BINARY_MULTIPLY,oracle
 0x47,71,direct,resolved,BINARY_RSHIFT,oracle
 0x48,72,direct,resolved,POP_BLOCK,oracle
-0x49,73,,unknown,,
+0x49,73,,unused,no interpreter case (gap in the switch),switch
 0x4a,74,direct,resolved,IMPORT_STAR,oracle
 0x4b,75,direct,resolved,PRINT_EXPR,switch
-0x4c,76,,unknown,,
+0x4c,76,,unused,no interpreter case (gap in the switch),switch
 0x4d,77,direct,resolved,INPLACE_RSHIFT,oracle
 0x4e,78,direct,resolved,INPLACE_AND,oracle
-0x4f,79,,unknown,,
-0x50,80,,unknown,,
+0x4f,79,,unused,no interpreter case (gap in the switch),switch
+0x50,80,,unused,no interpreter case (gap in the switch),switch
 0x51,81,direct,resolved,UNARY_NOT,oracle
 0x52,82,direct,resolved,INPLACE_MULTIPLY,oracle
 0x53,83,direct,resolved,RETURN_VALUE,oracle
@@ -178,80 +178,80 @@ byte_hex,byte_dec,role,status,decode,source
 0xb0,176,combo-head,resolved,LOAD_FAST;CALL_FUNCTION;POP_TOP (+0xB2),stdlib
 0xb1,177,combo-head,resolved,STORE_FAST;LOAD_GLOBAL (+0xB2),stdlib
 0xb2,178,combo-filler,resolved,inert 0xB2 continuation byte in combos (never a standalone opcode),opprev
-0xb3,179,,unused,,
-0xb4,180,,unused,,
-0xb5,181,,unused,,
-0xb6,182,,unused,,
-0xb7,183,,unused,,
-0xb8,184,,unused,,
-0xb9,185,,unused,,
-0xba,186,,unused,,
-0xbb,187,,unused,,
-0xbc,188,,unused,,
-0xbd,189,,unused,,
-0xbe,190,,unused,,
-0xbf,191,,unused,,
-0xc0,192,,unused,,
-0xc1,193,,unused,,
-0xc2,194,,unused,,
-0xc3,195,,unused,,
-0xc4,196,,unused,,
-0xc5,197,,unused,,
-0xc6,198,,unused,,
-0xc7,199,,unused,,
-0xc8,200,,unused,,
-0xc9,201,,unused,,
-0xca,202,,unused,,
-0xcb,203,,unused,,
-0xcc,204,,unused,,
-0xcd,205,,unused,,
-0xce,206,,unused,,
-0xcf,207,,unused,,
-0xd0,208,,unused,,
-0xd1,209,,unused,,
-0xd2,210,,unused,,
-0xd3,211,,unused,,
-0xd4,212,,unused,,
-0xd5,213,,unused,,
-0xd6,214,,unused,,
-0xd7,215,,unused,,
-0xd8,216,,unused,,
-0xd9,217,,unused,,
-0xda,218,,unused,,
-0xdb,219,,unused,,
-0xdc,220,,unused,,
-0xdd,221,,unused,,
-0xde,222,,unused,,
-0xdf,223,,unused,,
-0xe0,224,,unused,,
-0xe1,225,,unused,,
-0xe2,226,,unused,,
-0xe3,227,,unused,,
-0xe4,228,,unused,,
-0xe5,229,,unused,,
-0xe6,230,,unused,,
-0xe7,231,,unused,,
-0xe8,232,,unused,,
-0xe9,233,,unused,,
-0xea,234,,unused,,
-0xeb,235,,unused,,
-0xec,236,,unused,,
-0xed,237,,unused,,
-0xee,238,,unused,,
-0xef,239,,unused,,
-0xf0,240,,unused,,
-0xf1,241,,unused,,
-0xf2,242,,unused,,
-0xf3,243,,unused,,
-0xf4,244,,unused,,
-0xf5,245,,unused,,
-0xf6,246,,unused,,
-0xf7,247,,unused,,
-0xf8,248,,unused,,
-0xf9,249,,unused,,
-0xfa,250,,unused,,
-0xfb,251,,unused,,
-0xfc,252,,unused,,
-0xfd,253,,unused,,
-0xfe,254,,unused,,
-0xff,255,,unused,,
+0xb3,179,,unused,above the last used byte,
+0xb4,180,,unused,above the last used byte,
+0xb5,181,,unused,above the last used byte,
+0xb6,182,,unused,above the last used byte,
+0xb7,183,,unused,above the last used byte,
+0xb8,184,,unused,above the last used byte,
+0xb9,185,,unused,above the last used byte,
+0xba,186,,unused,above the last used byte,
+0xbb,187,,unused,above the last used byte,
+0xbc,188,,unused,above the last used byte,
+0xbd,189,,unused,above the last used byte,
+0xbe,190,,unused,above the last used byte,
+0xbf,191,,unused,above the last used byte,
+0xc0,192,,unused,above the last used byte,
+0xc1,193,,unused,above the last used byte,
+0xc2,194,,unused,above the last used byte,
+0xc3,195,,unused,above the last used byte,
+0xc4,196,,unused,above the last used byte,
+0xc5,197,,unused,above the last used byte,
+0xc6,198,,unused,above the last used byte,
+0xc7,199,,unused,above the last used byte,
+0xc8,200,,unused,above the last used byte,
+0xc9,201,,unused,above the last used byte,
+0xca,202,,unused,above the last used byte,
+0xcb,203,,unused,above the last used byte,
+0xcc,204,,unused,above the last used byte,
+0xcd,205,,unused,above the last used byte,
+0xce,206,,unused,above the last used byte,
+0xcf,207,,unused,above the last used byte,
+0xd0,208,,unused,above the last used byte,
+0xd1,209,,unused,above the last used byte,
+0xd2,210,,unused,above the last used byte,
+0xd3,211,,unused,above the last used byte,
+0xd4,212,,unused,above the last used byte,
+0xd5,213,,unused,above the last used byte,
+0xd6,214,,unused,above the last used byte,
+0xd7,215,,unused,above the last used byte,
+0xd8,216,,unused,above the last used byte,
+0xd9,217,,unused,above the last used byte,
+0xda,218,,unused,above the last used byte,
+0xdb,219,,unused,above the last used byte,
+0xdc,220,,unused,above the last used byte,
+0xdd,221,,unused,above the last used byte,
+0xde,222,,unused,above the last used byte,
+0xdf,223,,unused,above the last used byte,
+0xe0,224,,unused,above the last used byte,
+0xe1,225,,unused,above the last used byte,
+0xe2,226,,unused,above the last used byte,
+0xe3,227,,unused,above the last used byte,
+0xe4,228,,unused,above the last used byte,
+0xe5,229,,unused,above the last used byte,
+0xe6,230,,unused,above the last used byte,
+0xe7,231,,unused,above the last used byte,
+0xe8,232,,unused,above the last used byte,
+0xe9,233,,unused,above the last used byte,
+0xea,234,,unused,above the last used byte,
+0xeb,235,,unused,above the last used byte,
+0xec,236,,unused,above the last used byte,
+0xed,237,,unused,above the last used byte,
+0xee,238,,unused,above the last used byte,
+0xef,239,,unused,above the last used byte,
+0xf0,240,,unused,above the last used byte,
+0xf1,241,,unused,above the last used byte,
+0xf2,242,,unused,above the last used byte,
+0xf3,243,,unused,above the last used byte,
+0xf4,244,,unused,above the last used byte,
+0xf5,245,,unused,above the last used byte,
+0xf6,246,,unused,above the last used byte,
+0xf7,247,,unused,above the last used byte,
+0xf8,248,,unused,above the last used byte,
+0xf9,249,,unused,above the last used byte,
+0xfa,250,,unused,above the last used byte,
+0xfb,251,,unused,above the last used byte,
+0xfc,252,,unused,above the last used byte,
+0xfd,253,,unused,above the last used byte,
+0xfe,254,,unused,above the last used byte,
+0xff,255,,unused,above the last used byte,

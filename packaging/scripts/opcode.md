@@ -75,7 +75,7 @@ The encoding is produced in two stages, by two different pieces of software:
    or three consecutive opcodes into single *superinstruction* bytes. It comes
    **after** direct substitution (it operates on the compiler's canonical bytes).
 
-There is **no alias layer.** The permutation is a bijection — exactly one byte per
+There is **no alias layer.** The permutation is one-to-one — exactly one byte per
 stock opcode, and no opcode has a second standalone encoding. What flattens the
 opcode frequency is fusion, not alternate names (see the anti-frequency note
 below).
@@ -89,9 +89,9 @@ decoding is the reverse direction, which exists nowhere in the game.
 
 #### 1) Direct substitution — one byte to one opcode
 
-The compiler renumbers each stock opcode to a single encoded byte — a fixed
-**bijection**, one byte per opcode (no opcode has two encodings). The `0x5A`
-length threshold is honoured by the permutation (a no-operand opcode maps below
+The compiler renumbers each stock opcode to a single encoded byte — a fixed,
+**one-to-one** permutation, one byte per opcode (no opcode has two encodings). The
+`0x5A` length threshold is honoured by the permutation (a no-operand opcode maps below
 `0x5A`, an operand-carrying one at or above it), so an instruction's length stays
 readable from its encoded byte. This layer accounts for **118 bytes**, one per
 stock opcode exercised, scattered across the byte space. `EXTENDED_ARG` (byte
@@ -190,39 +190,40 @@ tables hold only what is **resolved**, and `opindex` is the coverage map over al
 stock opcode, `has_arg` whether it takes an operand, and `source` names the
 investigation(s) a row came from (`oracle`, `stdlib`, later `switch`).
 
-| File           | One row per                | Key columns                                                       | Purpose                                                                                     |
-| -------------- | -------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `opdirect.csv` | direct byte                | `perm_hex, perm_dec, stock_hex, stock_dec, name, has_arg, source` | The byte → stock-opcode map (a bijection; no alias column — there are no aliases). |
-| `opfused.csv`  | pure-fused byte            | `perm_hex, perm_dec, expands_to, stock_hex_list, arg, source`    | Each byte's stock-opcode sequence (≤1 stream operand); `arg` is the per-sub-op operand-source list. |
-| `opprev.csv`   | `0xB2` combo               | `prev_hex, prev_dec, expands_to, stock_hex_list, arg, source`     | The whole sequence a **combo head** runs, keyed by that head byte (which is always followed by the `0xB2` magic byte); `arg` is the per-sub-op operand-source list. |
+| File           | One row per              | Key columns                                                       | Purpose                                                                                                                                                    |
+| -------------- | ------------------------ | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `opdirect.csv` | direct byte              | `perm_hex, perm_dec, stock_hex, stock_dec, name, has_arg, source` | The byte → stock-opcode map (one-to-one; no alias column — there are no aliases).                                                                          |
+| `opfused.csv`  | pure-fused byte          | `perm_hex, perm_dec, expands_to, stock_hex_list, arg, source`     | Each byte's stock-opcode sequence (≤1 stream operand); `arg` is the per-sub-op operand-source list.                                                        |
+| `opprev.csv`   | `0xB2` combo             | `prev_hex, prev_dec, expands_to, stock_hex_list, arg, source`     | The whole sequence a **combo head** runs, keyed by that head byte (always followed by the `0xB2` magic byte); `arg` is the per-sub-op operand-source list. |
+| `opindex.csv`  | every byte `0x00`–`0xFF` | `byte_hex, byte_dec, role, status, decode, source`                | Coverage map: `role` (`direct`/`fused`/`combo-head`/`combo-filler`) and `status`.                                                                          |
 
 `arg` is a `;`-list with one entry per sub-opcode in `expands_to`, saying where
 that sub-op's 16-bit operand comes from: a **stream slot** (`0` = the byte's own
 operand, `1`/`2` = later `0xB2`-slot operands), `cN` = a **fixed constant**, or
 `-1` = **no operand**. (Only `0xAD`'s `LOAD_FAST` uses a constant, `c0`; no operand
-is ever split across sub-ops.) This makes operand routing exact for a
-de-obfuscator.
-| `opindex.csv`  | every byte `0x00`–`0xFF`   | `byte_hex, byte_dec, role, status, decode, source`               | Routing/coverage map: `role` (`direct`/`fused`/`combo-head`/`combo-filler`) and `status`.   |
+is ever split across sub-ops — routing is exact for a de-obfuscator.) `opprev` has
+the same shape as `opfused`; the one difference is that a combo's later operands
+ride in mandatory `0xB2` slots, so its head byte never occurs standalone.
 
-`opprev` has the same shape as `opfused`; the one difference is that a combo's
-later operands ride in mandatory `0xB2` continuation slots, so its head byte never
-occurs standalone. In `opindex`, `status` is `resolved`, `unknown` (not yet decoded
-but within the used range — for the switch), or `unused` (above the last used byte,
-where the switch has no case).
+In `opindex`, `status` is just **`resolved`** or **`unused`** — there are no
+`unknown` bytes. Reading the interpreter's own switch (§5) gave the complete set of
+handled opcodes, and that set is exactly the resolved set, so every other byte has
+no case and is unused (an in-range gap that falls to the switch's default/error, or
+a byte above the last used value `0xB2`).
 
 Current coverage: **163** of 256 bytes resolved — **118** direct, **14** pure-fused,
-**30** `0xB2` combo heads, and the `0xB2` filler byte itself. Of the rest, **16**
-are `unknown` (in-range, still to recover) and **77** are `unused` (the
-`0xB3`–`0xFF` block). Every resolved row is from a ground-truth source (§5), so the
-tables carry no `tentative`/`draft` state.
+**30** `0xB2` combo heads, and the `0xB2` filler byte — and **93** unused (16
+in-range gaps + the `0xB3`–`0xFF` block). Every resolved row is from a ground-truth
+source (§5).
 
 ---
 
 ## 5. Authoritative sources
 
-How each layer's table is established. Every entry comes from a ground-truth
-source — the interpreter's own compiler output or its packed stdlib — never from
-statistics. Two methods cover the layers.
+How the tables are established. Every entry comes from a ground-truth source, never
+from statistics. **Three** sources cover everything: the compiler **oracle** (the
+direct bytes), the packed **stdlib** (fusion), and the interpreter **switch** (the
+few bytes the other two miss, plus the confirmation that the set is complete).
 
 ### Direct substitution — the oracle method
 
@@ -236,37 +237,66 @@ yields the direct table deterministically. The compiler never emits fused bytes
 or combos, so this recovers **only** the direct bytes.
 Implemented by [`opcode-tools/opcex-oracle`](../../../opcode-tools/opcex-oracle).
 
-### Fusion and combos — the stdlib known-plaintext method
+### Fusion — the packed-stdlib method
 
-The packer's fusion never appears in the compiler's output, so the oracle is
-blind to it. Instead recover it from the game's own **packed stdlib**, whose
-source we know (stock 2.7.3) — a known-plaintext attack. For each module, compile
-the source to stock bytecode (the *plaintext*) and read the packed `.pyc` (the
-*ciphertext*), then align the two per code object:
+Fusion is added by the packer, not the compiler, so the oracle never sees it. But
+the game ships its **own Python standard library** as packed `.pyc` files, and we
+have the matching **original source** (stock 2.7.3). That is a known-plaintext
+attack: compile the source ourselves to get the bytecode the module *should* have,
+then line it up against the game's packed bytecode and read off what each encoded
+byte means.
 
-- **Pair by signature, not position.** The game ships a *patched* stdlib (NetEase
-  backported later 2.7.x fixes), so some functions differ. Code objects are paired
-  by signature (name, argcount, locals, names, stacksize, consts — all untouched
-  by packing); version-skewed functions are skipped.
-- **Align each object whole, by dynamic programming.** The stock side is fully
-  known, so for a correctly-paired object exactly one width-assignment is
-  consistent with every operand. The DP tries each operand-consistent width for
-  every unknown byte and asks only whether a complete path exists. A byte is read
-  off **only where its meaning is identical across every consistent path** (proven
-  by the operands); a pure-fused byte maps to a short run needing ≤1 operand, while
-  a **combo head** is recognised because it is immediately followed by the `0xB2`
-  magic byte — the head plus its `0xB2` slot(s) are read off together as one combo
-  (the operands revealing which sub-op receives each). An object with **no**
-  consistent path is proven misaligned and rejected, and the pass restarts without
-  it — so a mismatch can never leak a wrong mapping.
-- **Corroborate.** A reading is accepted only when **≥2 independent objects agree**;
-  a disagreement between two corroborated readings is a hard stop. The result is
-  deterministic with zero conflicts.
+This is done one code object (module, function, …) at a time. For each we have two
+instruction streams for the same program: the **stock** stream we compiled (fully
+known), and the **packed** stream from the game (same logic, but opcodes permuted
+and some runs fused into single bytes).
 
-This yields the pure-fused expansions (`opfused`) and the `0xB2` combos
-(`opprev`), each keyed by its head byte with full per-sub-op operand routing; it
-finds **no** new standalone direct bytes (every byte it resolves to a single op is
-really a combo head, so it goes to `opprev`, not `opdirect`). Implemented by
-[`opcode-tools/opcex-stdlib`](../../../opcode-tools/opcex-stdlib). Bytes the stdlib
-never exercises unambiguously stay `unknown`, to be recovered from the interpreter
-switch.
+Fusion makes the packed stream *shorter*, and we don't know in advance which packed
+byte is a plain opcode and which expands into two or three — so we let the
+**operands decide**. Walk both streams from the start; at each packed byte the only
+readings allowed are those whose operand matches the stock operand it lines up
+against. A plain byte consumes one stock opcode, a fused byte consumes two or three,
+and a byte followed by the `0xB2` magic byte is a combo read together with its
+`0xB2` slot(s). Because the stock side is fixed, only one way of splitting the
+packed stream fits every operand across the whole object — and that alignment tells
+us what each byte expands to and which sub-op takes which operand.
+
+Two things keep it honest:
+
+- **Patched functions are skipped.** The game's stdlib is lightly patched (NetEase
+  backported a few later 2.7.x fixes), so some functions no longer match our source
+  and simply fail to line up. We drop those rather than force a wrong reading.
+- **Every mapping needs corroboration.** A byte's meaning is accepted only once at
+  least two independent functions agree on it; a real disagreement stops the run for
+  inspection. The result is deterministic, with no conflicts.
+
+This produces the pure-fused table (`opfused`) and the `0xB2`-combo table
+(`opprev`), each with full operand routing. Implemented by
+[`opcode-tools/opcex-stdlib`](../../../opcode-tools/opcex-stdlib). Opcodes the
+stdlib never exercises are left to the switch.
+
+### The interpreter switch — the last opcodes, and the completeness check
+
+The third source is the interpreter itself. Its eval loop (`PyEval_EvalFrameEx`) is
+one big switch over the encoded opcode byte, compiled into `launcher.exe`; we read
+it in Ghidra. It is both a *source* for the few opcodes the other two miss and the
+*proof* that the tables are complete. In short:
+
+1. **Detangle.** Ghidra strips names, so the decompiled function's variables were
+   renamed toward stock CPython 2.7.3 `ceval` names (`next_instr`, `oparg`, the
+   frame and stack pointers, struct offsets) — giving a readable switch whose case
+   labels are the encoded bytes.
+2. **Label the known cases** from the oracle/stdlib tables, which leaves only a
+   handful of blank cases.
+3. **Body-match the rest.** The game loop and stock `ceval` are the *same* function,
+   so a blank case is identified by *what its handler does*. This recovered the
+   direct ops the oracle corpus never exercised (`NOP`, `ROT_FOUR`, `PRINT_EXPR`)
+   and the fused/combo bytes the stdlib never used (`0x7a`, `0x98`).
+4. **Confirm completeness.** The switch's jump table lists exactly which bytes have
+   a handler — **162** opcodes — and that set is byte-for-byte identical to the
+   union of the three tables (118 + 14 + 30). So every handled case is accounted
+   for, no combo is missing, and every remaining byte has no case (hence `unused`).
+
+Implemented and written up in
+[`opcode-tools/opcex-switch`](../../../opcode-tools/opcex-switch) (the combo-specific
+reasoning is in its `B2_COMBOS.md`).
